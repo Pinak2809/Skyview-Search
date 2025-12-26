@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pillow
+aiofiles
+python-multipart
+transformers
+torch
+torchvision
+open-clip-torch
+faiss-cpu
+numpy

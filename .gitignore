@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Data files (large, regeneratable)
+data/raw/
+data/processed/skyview/*.db
+data/processed/skyview/*.faiss
+data/processed/skyview/*.npy
+data/processed/skyview/manifest.json
+data/processed/skyview/evaluation_results.json
+
+# Keep processed images folder structure but ignore images
+data/processed/skyview/*/*.jpg
+data/processed/skyview/*/*.png
+data/processed/skyview/*/*.jpeg
+
+# Model cache (downloaded automatically)
+.cache/
+*.bin
+*.safetensors
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# pytest
+.pytest_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Frontend build (if WPF)
+frontend/bin/
+frontend/obj/
+frontend/*.user
+frontend/*.suo
+
+# Demo videos (too large for git)
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+```

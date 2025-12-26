@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+pillow
+sqlalchemy
+alembic
+numpy
+torch
+transformers>=4.30.0
+open-clip-torch
+aiofiles
+python-dotenv
+tqdm
