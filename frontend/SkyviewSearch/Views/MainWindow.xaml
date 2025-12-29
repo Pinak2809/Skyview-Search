@@ -1,0 +1,238 @@
+<Window x:Class="SkyviewSearch.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:SkyviewSearch.ViewModels"
+        xmlns:converters="clr-namespace:SkyviewSearch.Converters"
+        Title="Skyview Search" 
+        Height="700" 
+        Width="1000"
+        MinHeight="500"
+        MinWidth="700"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibility"/>
+        <converters:BoolToColorConverter x:Key="BoolToColor"/>
+    </Window.Resources>
+    
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Skyview Search" 
+                       FontSize="28" 
+                       FontWeight="Bold" 
+                       Foreground="{StaticResource TextBrush}"/>
+            <TextBlock Text="Semantic image search for aerial landscape imagery" 
+                       FontSize="14" 
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       Margin="0,4,0,0"/>
+        </StackPanel>
+        
+        <!-- Search Bar -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox Grid.Column="0" 
+                     Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource SearchTextBox}"
+                     VerticalContentAlignment="Center"
+                     Margin="0,0,10,0">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SearchCommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            
+            <!-- Result Count -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,10,0">
+                <TextBlock Text="Results:" 
+                           VerticalAlignment="Center" 
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           Margin="0,0,5,0"/>
+                <ComboBox SelectedValue="{Binding ResultCount}" 
+                          SelectedValuePath="Content"
+                          Width="60">
+                    <ComboBoxItem Content="5"/>
+                    <ComboBoxItem Content="10" IsSelected="True"/>
+                    <ComboBoxItem Content="20"/>
+                    <ComboBoxItem Content="30"/>
+                </ComboBox>
+            </StackPanel>
+            
+            <Button Grid.Column="2" 
+                    Content="Search" 
+                    Command="{Binding SearchCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="100"
+                    Margin="0,0,10,0"/>
+            
+            <Button Grid.Column="3" 
+                    Content="Clear" 
+                    Command="{Binding ClearCommand}"
+                    Background="#94A3B8"
+                    Foreground="White"
+                    Style="{StaticResource PrimaryButton}"
+                    Width="80"/>
+        </Grid>
+        
+        <!-- Results Grid -->
+        <Border Grid.Row="2" 
+                Background="{StaticResource CardBrush}" 
+                CornerRadius="8"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1">
+            
+            <Grid>
+                <!-- Loading Indicator -->
+                <StackPanel Visibility="{Binding IsSearching, Converter={StaticResource BoolToVisibility}}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="Searching..." 
+                               FontSize="16"
+                               Foreground="{StaticResource TextSecondaryBrush}"/>
+                </StackPanel>
+                
+                <!-- Empty State -->
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SearchResults.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBlock Text="Enter a search query to find images" 
+                               FontSize="16"
+                               Foreground="{StaticResource TextSecondaryBrush}"/>
+                    <TextBlock Text="Example: 'airport runway', 'mountain peaks', 'urban city buildings'" 
+                               FontSize="12"
+                               Foreground="{StaticResource TextSecondaryBrush}"
+                               Margin="0,8,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+                
+                <!-- Results List -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="10">
+                    <ItemsControl ItemsSource="{Binding SearchResults}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White" 
+                                        BorderBrush="{StaticResource BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Margin="5"
+                                        Padding="8"
+                                        Width="200"
+                                        Cursor="Hand"
+                                        MouseLeftButtonUp="ImageCard_Click">
+                                    <StackPanel>
+                                        <!-- Thumbnail -->
+                                        <Border Background="#F1F5F9" 
+                                                CornerRadius="4" 
+                                                Height="150"
+                                                Margin="0,0,0,8">
+                                            <Grid>
+                                                <!-- Loading placeholder -->
+                                                <TextBlock Text="Loading..."
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                                           Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}"/>
+                                                
+                                                <!-- Image -->
+                                                <Image Source="{Binding Thumbnail}" 
+                                                       Stretch="UniformToFill"
+                                                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                                            </Grid>
+                                        </Border>
+                                        
+                                        <!-- Category Badge -->
+                                        <Border Background="{StaticResource PrimaryBrush}" 
+                                                CornerRadius="3"
+                                                Padding="6,2"
+                                                HorizontalAlignment="Left"
+                                                Margin="0,0,0,4">
+                                            <TextBlock Text="{Binding Category}" 
+                                                       Foreground="White"
+                                                       FontSize="10"
+                                                       FontWeight="SemiBold"/>
+                                        </Border>
+                                        
+                                        <!-- Caption -->
+                                        <TextBlock Text="{Binding Caption}" 
+                                                   Foreground="{StaticResource TextBrush}"
+                                                   FontSize="12"
+                                                   TextWrapping="Wrap"
+                                                   MaxHeight="36"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        
+                                        <!-- Score -->
+                                        <TextBlock Text="{Binding Score, StringFormat='Score: {0}'}" 
+                                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                                   FontSize="10"
+                                                   Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        
+        <!-- Status Bar -->
+        <Border Grid.Row="3" 
+                Background="{StaticResource CardBrush}" 
+                CornerRadius="6"
+                Padding="12,8"
+                Margin="0,10,0,0"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0"
+                           Text="{Binding StatusMessage}" 
+                           Foreground="{StaticResource TextSecondaryBrush}"
+                           FontSize="12"
+                           VerticalAlignment="Center"/>
+                
+                <TextBlock Grid.Column="1"
+                           Text="{Binding ConnectionStatus}" 
+                           Foreground="{Binding IsConnected, Converter={StaticResource BoolToColor}}"
+                           FontSize="12"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
