@@ -326,14 +326,6 @@ CREATE TABLE images (
 3. **Caption quality varies**: BLIP occasionally produces odd descriptions
 4. **English only**: Queries must be in English
 
-## Future Improvements
-
-- [ ] WPF desktop frontend
-- [ ] Web-based frontend
-- [ ] Image-to-image search
-- [ ] Batch upload API
-- [ ] Index optimization (IVF+PQ) for larger datasets
-- [ ] Multi-language query support
 
 ## Dependencies
 
@@ -358,10 +350,6 @@ numpy
 - [OpenCLIP](https://github.com/mlfoundations/open_clip) - Open source implementation of CLIP
 - [BLIP](https://arxiv.org/abs/2201.12086) - Bootstrapping Language-Image Pre-training
 - [FAISS](https://github.com/facebookresearch/faiss) - Library for efficient similarity search
-
-## License
-
-MIT License
 
 ## Author
 
