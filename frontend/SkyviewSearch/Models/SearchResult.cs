@@ -2,9 +2,9 @@ using Newtonsoft.Json;
 
 namespace SkyviewSearch.Models
 {
-    /// <summary>
+    
     /// Represents a single image search result from the API.
-    /// </summary>
+    
     public class SearchResult
     {
         [JsonProperty("uuid")]
@@ -27,9 +27,9 @@ namespace SkyviewSearch.Models
         /// </summary>
         public string ScoreDisplay => $"{Score:P1}";
 
-        /// <summary>
+       
         /// Short caption for display (max 60 chars).
-        /// </summary>
+        
         public string CaptionShort => Caption?.Length > 60 
             ? Caption.Substring(0, 57) + "..." 
             : Caption ?? "No caption";

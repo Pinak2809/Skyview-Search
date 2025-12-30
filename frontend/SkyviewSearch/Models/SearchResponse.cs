@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SkyviewSearch.Models
 {
-    /// <summary>
+    
     /// Represents the API response for a search query.
-    /// </summary>
+    
     public class SearchResponse
     {
         [JsonProperty("query")]

@@ -9,9 +9,9 @@ using System.Windows.Media.Imaging;
 
 namespace SkyviewSearch.Services
 {
-    /// <summary>
+    
     /// Service for communicating with the Skyview Search API.
-    /// </summary>
+    
     public class ApiService : IDisposable
     {
         private readonly HttpClient _client;
@@ -26,9 +26,9 @@ namespace SkyviewSearch.Services
             };
         }
 
-        /// <summary>
+       
         /// Search for images matching the query text.
-        /// </summary>
+        
         public async Task<SearchResponse?> SearchAsync(string query, int k = 10)
         {
             try
@@ -43,9 +43,9 @@ namespace SkyviewSearch.Services
             }
         }
 
-        /// <summary>
+       
         /// Get database statistics.
-        /// </summary>
+       
         public async Task<StatsResponse?> GetStatsAsync()
         {
             try
@@ -60,9 +60,9 @@ namespace SkyviewSearch.Services
             }
         }
 
-        /// <summary>
+        
         /// Get image as BitmapImage by UUID.
-        /// </summary>
+        
         public async Task<BitmapImage?> GetImageAsync(string uuid)
         {
             try

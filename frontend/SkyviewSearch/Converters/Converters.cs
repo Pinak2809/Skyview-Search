@@ -6,10 +6,10 @@ using System.Windows.Media;
 
 namespace SkyviewSearch.Converters
 {
-    /// <summary>
+    
     /// Converts zero to Visible, non-zero to Collapsed.
     /// Used to show empty state when no results.
-    /// </summary>
+    
     public class ZeroToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -27,10 +27,10 @@ namespace SkyviewSearch.Converters
         }
     }
 
-    /// <summary>
+    
     /// Converts boolean to color (green for true, gray for false).
     /// Used for connection status indicator.
-    /// </summary>
+    
     public class BoolToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -50,9 +50,9 @@ namespace SkyviewSearch.Converters
         }
     }
 
-    /// <summary>
+   
     /// Inverts boolean value.
-    /// </summary>
+    
     public class InverseBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

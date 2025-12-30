@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SkyviewSearch.Models
 {
-    /// <summary>
+    
     /// Represents database statistics from the API.
-    /// </summary>
+    
     public class StatsResponse
     {
         [JsonProperty("total_images")]
