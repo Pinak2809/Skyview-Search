@@ -12,8 +12,7 @@ This frontend connects to the Skyview Search API backend and provides:
 - Category and score display for each result
 
 ## Screenshots
-
-*Add screenshots here after running the application*
+<img width="1917" height="1018" alt="Screenshot 2026-01-09 230633" src="https://github.com/user-attachments/assets/9d616b25-be92-4922-aa26-a32e45751dc4" />
 
 ## Requirements
 
@@ -82,12 +81,6 @@ Or run the compiled executable:
 1. Type a search query in the search bar (e.g., "airport runway", "mountain peaks")
 2. Press **Enter** or click the **Search** button
 3. Results appear as a grid of thumbnails
-
-### View Full Image
-
-- Click on any thumbnail to open the full image viewer
-- If the image file exists locally, it opens in your default image viewer
-- Otherwise, it opens in the built-in viewer
 
 ### Adjust Result Count
 
@@ -184,47 +177,6 @@ The application follows the **MVVM (Model-View-ViewModel)** pattern:
 
 ## Configuration
 
-### Change API URL
-
-Edit `Services/ApiService.cs`:
-
-```csharp
-public ApiService(string baseUrl = "http://127.0.0.1:8000")
-```
-
-Change the default URL if your backend runs on a different address.
-
-### Change Default Result Count
-
-Edit `ViewModels/MainViewModel.cs`:
-
-```csharp
-private int _resultCount = 10;  // Change default here
-```
-
-## Styling
-
-The application uses a clean, modern design with:
-- Blue primary color (#2563EB)
-- Light gray background (#F8FAFC)
-- Rounded corners on cards and buttons
-- Responsive grid layout for results
-
-To customize colors, edit `App.xaml`:
-
-```xml
-<Color x:Key="PrimaryColor">#2563EB</Color>
-<Color x:Key="BackgroundColor">#F8FAFC</Color>
-```
-
-## Troubleshooting
-
-### Application doesn't start
-
-1. Check .NET SDK is installed: `dotnet --version`
-2. Rebuild: `dotnet build --force`
-3. Check for errors: `dotnet run --verbosity detailed`
-
 ### "Connection refused" or "Disconnected" status
 
 1. Ensure backend is running on port 8000
@@ -236,31 +188,6 @@ To customize colors, edit `App.xaml`:
 1. Check backend console for errors
 2. Verify image files exist at the paths in database
 3. Check thumbnail endpoint: `http://127.0.0.1:8000/thumbnail/{uuid}`
-
-### Slow thumbnail loading
-
-Thumbnails load asynchronously. First search after startup may be slower due to model loading on the backend.
-
-## Development
-
-### Open in VS Code
-
-```cmd
-cd frontend
-code .
-```
-
-Install recommended extensions:
-- C# Dev Kit (Microsoft)
-- C# (Microsoft)
-
-### Build Release Version
-
-```cmd
-dotnet build -c Release
-```
-
-Output: `bin\Release\net8.0-windows\SkyviewSearch.exe`
 
 ### Publish as Self-Contained
 
@@ -285,10 +212,6 @@ This creates a standalone executable that doesn't require .NET runtime installed
 - [ ] Dark mode
 - [ ] Keyboard shortcuts
 - [ ] Batch operations
-
-## License
-
-MIT License
 
 ## Author
 
