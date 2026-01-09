@@ -60,13 +60,6 @@ Skyview Search enables natural language queries against a dataset of 12,000 aeri
 3. **Caption**: Generate descriptions using BLIP model (for display)
 4. **Embed**: Convert images to 512-dim vectors using CLIP, store in FAISS
 
-### Online Search (Runtime)
-
-1. User enters text query (e.g., "airport runway")
-2. CLIP text encoder converts query to 512-dim vector
-3. FAISS finds nearest image vectors (cosine similarity)
-4. Return matching images with scores and captions
-
 ## Dataset
 
 **Name:** Skyview Multi-Landscape Aerial Imagery Dataset
