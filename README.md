@@ -11,6 +11,7 @@ A semantic image search engine for aerial landscape imagery using CLIP embedding
 Skyview Search enables natural language queries against a dataset of 12,000 aerial images across 15 landscape categories. Instead of relying on keywords or tags, it uses deep learning to understand the visual content of images and match them to text descriptions.
 
 **Example:** Searching "circular irrigation patterns in agricultural land" returns relevant aerial farm images — without any keyword matching.
+**Video Preview:** https://youtu.be/Vvey9vDz4_E
 
 ## Features
 
